@@ -2,6 +2,15 @@
 
 echo "Welcome to Employee Wage Computation Program on Master Branch "
 
+#---------------------------------------------------------------------------------------------------------------------------------------------------
+
+workhour (){
+read -p "Enter the hours you work : " Empworkhour
+echo $hours
+}
+
+#---------------------------------------------------------------------------------------------------------------------------------------------------
+
 #!/bin/bash -x
 
 Attendence=$(( $RANDOM % 2 + 1 ))
@@ -19,7 +28,7 @@ fi
 if [ "$employ" == "Present" ]
 then
 	Employwageperhour=20
-	Empworkhour=8
+	workhour
 	dailyemploywage=$(($Employwageperhour * $Empworkhour))
 	echo "Wage of $name who does full time is : "$dailyemploywage
 else
@@ -71,7 +80,7 @@ do
 	if [ "$employ" == "Present" ]
 	then
 		Employwageperhour=20
-		Empworkhour=8
+		workhour
 		dailyemploywage=$(($Employwageperhour * $Empworkhour))
 		echo "Wage of $name for full time is : "$dailyemploywage
 		printf "\n"
@@ -86,6 +95,7 @@ do
 	"3")
 	if [ "$employ" == "Present" ]
 	then	
+		workhour
 		partworktime=$(($Empworkhour/2))
 		parttimeemploywage=$(($Employwageperhour*$partworktime))
 		echo "Wage of $name for part time is : "$parttimeemploywage
@@ -119,7 +129,8 @@ printf "\n"
 echo "Calculating Wages for a Month - Assume 20 Working Day per Month"
 
 WorkingDayPerMonth=20
-
+workhour
+dailyemploywage=$(($Empworkhour*$Employwageperhour))
 wagesperamonth=$(($dailyemploywage*$WorkingDayPerMonth))
 
 echo "Wages Per Month of $name is : " $wagesperamonth
@@ -170,3 +181,5 @@ do
 done
 		
 echo " Total wages of $name is : $wages "
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------
