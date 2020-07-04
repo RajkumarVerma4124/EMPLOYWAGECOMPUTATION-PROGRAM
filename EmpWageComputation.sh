@@ -88,10 +88,10 @@ do
 	"2")
 	if [ "$employ" == "Present" ]
 	then
-		Employwageperhour=20
+		NewEmploywageperhour=20
 		workhour
-		dailyemploywage=$(($Employwageperhour * $Empworkhour))
-		echo "Wage of $name for full time is : "$dailyemploywage
+		Newdailyemploywage=$(($NewEmploywageperhour * $Empworkhour))
+		echo "Wage of $name for full time is : "$Newdailyemploywage
 		printf "\n"
 		printf "\n"
 	else
@@ -104,10 +104,9 @@ do
 	"3")
 	if [ "$employ" == "Present" ]
 	then	
-		workhour
-		partworktime=$(($Empworkhour/2))
-		parttimeemploywage=$(($Employwageperhour*$partworktime))
-		echo "Wage of $name for part time is : "$parttimeemploywage
+		Newpartworktime=$(($Empworkhour/2))
+		Newparttimeemploywage=$(($NewEmploywageperhour*$Newpartworktime))
+		echo "Wage of $name for part time is : "$Newparttimeemploywage
 		printf "\n"
 		printf "\n"
 	else
@@ -243,6 +242,24 @@ do
 	Day[$i]=$employ
 	totalwage=$(($totalwage+${Day[$i]}))
 echo Day $i " = " ${Day[$i]} " : " $totalwage
+done
+echo "Total wages of $name in $days days of work is : "$totalwage
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+printf "\n"
+echo "Store the Day and the Daily Wage along with the Total Wage"
+printf "\n"
+totalwage=0
+read -p "Enter the number of days you want to work  : " days
+workhour
+echo $days
+for((i=1; i<=$days; i++))
+do
+	checkifAvailable
+	totalwage=$(($totalwage+$employ))
+	declare -A dayss=( [day]="DAY [$i]"   [wages]="DAILY WAGE :: $employ"   [totalwage]="TOTAL WAGE :: $totalwage" )
+	echo "WAGE IN  === " ${dayss[@]}
 done
 echo "Total wages of $name in $days days of work is : "$totalwage
 
