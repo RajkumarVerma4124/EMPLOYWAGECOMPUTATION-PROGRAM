@@ -137,7 +137,6 @@ dailyemploywages=160
 parttimeemploywages=80
 absentday=0
 i=0
-
 while [ $newworktime -lt $totaltime -a $days -lt $totalday ]
 do
 	checkPresent=$(( $RANDOM % 3 + 1 ))
@@ -170,4 +169,4 @@ do
 	fi
 done
 		
-echo "Total wages of $name is : $wages "
+echo " Total wages of $name is : $wages "
