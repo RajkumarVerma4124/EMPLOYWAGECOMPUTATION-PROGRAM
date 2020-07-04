@@ -128,4 +128,46 @@ printf "\n"
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------
 
+read -p "Enter the Total hours you worked : " totaltime
+read -p "Enter the total no. of days you worked : " totalday
+newworktime=0
+wages=0
+days=0
+dailyemploywages=160
+parttimeemploywages=80
+absentday=0
+i=0
 
+while [ $newworktime -lt $totaltime -a $days -lt $totalday ]
+do
+	checkPresent=$(( $RANDOM % 3 + 1 ))
+	if [ $checkPresent -eq 1 ]
+	then
+		newworktime=$(($newworktime+8))
+		days=$(($days+1))
+		i=$(($i+1))
+		wages=$(($wages+$dailyemploywages))
+		declare -A dayss=( [day]="DAY [$i]"   [wages]="FULLDAY WAGE :: $dailyemploywages"   [totalwage]="TOTAL WAGE :: $wages" )
+		echo "WAGE IN    :  " ${dayss[@]}
+	fi
+
+	if [ $checkPresent -eq 2 ]
+	then
+		newworktime=$(($newworktime+4))
+		days=$(($days+1))
+		i=$(($i+1))
+		wages=$(($wages+$parttimeemploywages))
+		declare -A dayss=( [day]="DAY [$i]"   [wages]="PARTTIME WAGE :: $parttimeemploywages"   [totalwage]="TOTAL WAGE :: $wages" )
+		echo "WAGE IN    :  " ${dayss[@]}
+	fi
+	
+	if [ $checkPresent -eq 3 ]
+	then
+		days=$(($days+1))
+		i=$(($i+1))
+		declare -A dayss=( [day]="DAY [$i]"   [wages]="ABSENT DAY WAGE :: $absentday"   [totalwage]="TOTAL WAGE :: $wages" )
+		echo "WAGE IN    :  " ${dayss[@]}
+	fi
+done
+		
+echo "Total wages of $name is : $wages "
