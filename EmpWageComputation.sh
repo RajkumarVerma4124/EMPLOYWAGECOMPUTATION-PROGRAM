@@ -99,7 +99,7 @@ do
 	;;
 
 	4)
-	exit
+	break
 	printf "\n"
 	printf "\n"
 	;;
@@ -110,4 +110,22 @@ do
 
 	esac
 done
+
+#---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+printf "\n"
+printf "\n"
+
+echo "Calculating Wages for a Month - Assume 20 Working Day per Month"
+
+WorkingDayPerMonth=20
+
+wagesperamonth=$(($dailyemploywage*$WorkingDayPerMonth))
+
+echo "Wages Per Month of $name is : " $wagesperamonth
+
+printf "\n"
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------
+
 
