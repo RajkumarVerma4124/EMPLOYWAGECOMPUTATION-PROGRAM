@@ -6,13 +6,16 @@ echo "Welcome to Employee Wage Computation Program on Master Branch "
 
 workhour (){
 read -p "Enter the hours you work : " Empworkhour
-echo $hours
+echo $Empworkhour
 }
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------
 
 #!/bin/bash -x
 
+printf "\n"
+echo " checking if an employ is present or not "
+printf "\n"
 Attendence=$(( $RANDOM % 2 + 1 ))
 if [ $Attendence -eq 1 ]
 then
@@ -25,6 +28,9 @@ else
 	echo $employ
 fi
 
+printf "\n"
+echo " Calculating its daily wage if present "
+printf "\n"
 if [ "$employ" == "Present" ]
 then
 	Employwageperhour=20
@@ -36,7 +42,9 @@ else
 	echo "Employee Name $name was Absent today : "$dailyemploywage
 fi
 
-
+printf "\n"
+echo " Calculating its part time wage if present "
+printf "\n"
 if [ "$employ" == "Present" ]
 then
 	partime=$(($Empworkhour/2))
@@ -50,6 +58,7 @@ fi
 #------------------------------------------------------------------------------------------------------------------
 
 printf "\n"
+echo "Solving Using Switch case"
 printf "\n"
 
 while true
@@ -123,10 +132,12 @@ done
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-printf "\n"
+
 printf "\n"
 
 echo "Calculating Wages for a Month - Assume 20 Working Day per Month"
+
+printf "\n"
 
 WorkingDayPerMonth=20
 workhour
@@ -139,6 +150,10 @@ printf "\n"
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------
 
+printf "\n"
+echo " Calculate Wages till a condition of total working hours or days is reached for a month - Assume 100 hours and 20 days"
+printf "\n"
+
 read -p "Enter the Total hours you worked : " totaltime
 read -p "Enter the total no. of days you worked : " totalday
 newworktime=0
@@ -148,7 +163,7 @@ dailyemploywages=160
 parttimeemploywages=80
 absentday=0
 i=0
-while [ $newworktime -lt $totaltime -a $days -lt $totalday ]
+while [ $newworktime -le $totaltime -a $days -lt $totalday ]
 do
 	checkPresent=$(( $RANDOM % 3 + 1 ))
 	if [ $checkPresent -eq 1 ]
@@ -179,7 +194,55 @@ do
 		echo "WAGE IN    :  " ${dayss[@]}
 	fi
 done
-		
 echo " Total wages of $name is : $wages "
 
-#-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+printf "\n"
+echo " Storing the Daily Wage along with the Total Wage"
+printf "\n"
+dailyemploywage(){
+Employwageperhour=20
+dailyemploywage=$(($Employwageperhour * $Empworkhour))
+}
+
+parttimeemploywage(){
+Employwageperhour=20
+partime=$(($Empworkhour/2))
+parttimeemploywage=$(($Employwageperhour * $partime))
+}
+
+checkifAvailable() {
+person=$(($RANDOM%3+1))
+if [ $person -eq 1 ]
+then
+	dailyemploywage
+	employ=$dailyemploywage
+elif [ $person -eq 2 ]
+then
+	parttimeemploywage
+	employ=$parttimeemploywage
+elif [ $person -eq 3 ]
+then
+	employ=0
+fi
+}
+
+totalwage=0
+
+read -p "Enter the number of days you want to work  : " days
+
+workhour
+
+echo $days
+
+for((i=1; i<=$days; i++))
+do
+	checkifAvailable
+	Day[$i]=$employ
+	totalwage=$(($totalwage+${Day[$i]}))
+echo Day $i " = " ${Day[$i]} " : " $totalwage
+done
+echo "Total wages of $name in $days days of work is : "$totalwage
+
